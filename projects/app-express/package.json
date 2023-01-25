@@ -1,0 +1,32 @@
+{
+  "name": "app-express",
+  "version": "1.0.0",
+  "description": "tugas akhir projek e-samsat",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "start-swagger": "node swagger.js"
+  },
+  "author": "khaidar ar",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "express.js": "^1.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "knex": "^2.4.1",
+    "moment": "^2.29.4",
+    "morgan": "^1.10.0",
+    "objection": "^3.0.1",
+    "pg": "^8.8.0",
+    "swagger-autogen": "^2.22.0",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

@@ -1,0 +1,833 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "RESTful API E-Samsat",
+    "description": "Aplikasi E-Samsat Tugas Akhir Web Back-End Development.\n Aplikasi ini akan melakukan operasi query atas 4 tabel, yakni : admin, member, vehicles, dan owners.Pada intinya API E-Samsat ini melakukan relasi antara tabel member yang mewakili entitas pemilik kendaraan dan tabel vehicle yang mewakili entitas kendaraan, yang dihubungkan oleh tabel owner menggunakan relation mapping objection js. Dimana untuk setiap melakukan http request yang berhubungan langsung dengan 3 tabel selain admin memerlukan autentifikasi header menggunakan jwt token yang diperoleh pada saat login sebagai administrator.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/admin": {
+      "post": {
+        "tags": [
+          "Create New Admin Data"
+        ],
+        "description": "Endpoint pembuatan data admin baru",
+        "parameters": [
+          {
+            "name": "create",
+            "in": "body",
+            "description": "Create new admin",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminRequestFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Display All Admin"
+        ],
+        "description": "Menampilkan data seluruh admin",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete All Admin Data"
+        ],
+        "description": "Endpoint untuk menghapus seluruh data admin",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/login": {
+      "post": {
+        "tags": [
+          "Login Administrator"
+        ],
+        "description": "Login Administrator E-samsat API",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "body",
+            "description": "login member only",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequestFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/member": {
+      "post": {
+        "tags": [
+          "Create Member Data"
+        ],
+        "summary": "Query INSERT to Member table",
+        "description": "Endpoint pembuatan data member",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "create",
+            "in": "body",
+            "description": "Endpoint pembuatan data member",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MemberInsertRequestFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Get All Data Member"
+        ],
+        "summary": "Query SELECT to Member table",
+        "description": "Endpoint menampilkan keseluruhan data member",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete All Data Member"
+        ],
+        "summary": "Query DELETE to Member table",
+        "description": "Endpoint menghapus data member berdasarkan ID",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/member/{id}": {
+      "get": {
+        "tags": [
+          "Get Data Member By ID"
+        ],
+        "summary": "Query SELEECT to Member table",
+        "description": "Endpoint menampilkan data member berdasarkan ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete Data Member By ID"
+        ],
+        "summary": "Query DELETE {id} to Member table",
+        "description": "Endpoint menghapus keseluruhan data member",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/owner": {
+      "post": {
+        "tags": [
+          "Create Owner Relations"
+        ],
+        "summary": "Query INSERT to Owner table",
+        "description": "Endpoint untuk melakukan relasi antara tabel member dan tabel vehicle ",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "create",
+            "in": "body",
+            "description": "Endpoint relasi tabel member dan tabel vehicle menggunakan id dari kedua tabel.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OwnerRequestFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/owners": {
+      "get": {
+        "tags": [
+          "Display All Owners Relations"
+        ],
+        "summary": "Query SELECT to Owner table",
+        "description": "Endpoint untuk menampilkan relasi tabel member dan vehicle",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete Owners Relations"
+        ],
+        "summary": "Query DELETE to Owner table",
+        "description": "Endpoint untuk menghapus data relasi antara tabel member dan tabel vehicle",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/owners/{id}": {
+      "get": {
+        "tags": [
+          "Get Owner Relations By Member ID"
+        ],
+        "summary": "Query SELECT {id} to Owner table",
+        "description": "Endpoint untuk menampilkan data relasi antara tabel member dan tabel vehicle menurut ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete Owner Relations By Member ID"
+        ],
+        "summary": "Query DELETE {id} to Owner table",
+        "description": "Endpoint untuk menghapus data relasi antara tabel member dan tabel vehicle menurut ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/vehicles": {
+      "post": {
+        "tags": [
+          "Create New Vehicle"
+        ],
+        "summary": "Query INSERT to Vehicle table",
+        "description": "Endpoint pembuatan data kendaraan baru",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "create",
+            "in": "body",
+            "description": "Endpoint pembuatan data kendaraan baru dengan request body berupa: nopol,merk,tipe,tahun, dan kubikasi",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VehicleInsertRequestFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Display All Vehicles Data"
+        ],
+        "summary": "Query SELECT to Vehicle table",
+        "description": "Endpoint untuk menampilkan keseluruhan data kendaraan",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete All Vehicles Data"
+        ],
+        "summary": "Query DELETE to Vehicle table",
+        "description": "Endpoint untuk menghapus seluruh data kendaraan",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}": {
+      "get": {
+        "tags": [
+          "Display Vehicle Data By ID"
+        ],
+        "summary": "Query SELECT {id} to Vehicle table",
+        "description": "Endpoint untuk menampilkan data kendaraan berdasarkan ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete Vehicle Data By ID"
+        ],
+        "summary": "Query DELETE {id} to Vehicle table",
+        "description": "Endpoint untuk menghapus data kendaraan menurut ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Update Vehicle Data By ID"
+        ],
+        "summary": "Query UPDATE {id} to Vehicle table",
+        "description": "Endpoint untuk memperbarui data kendaraan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "update",
+            "in": "body",
+            "description": "Endpoint perubahan data kendaraan dengan request body berupa : nopol, merk, tipe",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VehicleUpdateRequestFormat"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AdminRequestFormat": {
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string",
+          "example": ""
+        },
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "nama",
+        "email",
+        "password"
+      ]
+    },
+    "MemberInsertRequestFormat": {
+      "type": "object",
+      "properties": {
+        "nama": {
+          "type": "string",
+          "example": ""
+        },
+        "alamat": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "nama",
+        "alamat"
+      ]
+    },
+    "LoginRequestFormat": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": ""
+        },
+        "password": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "VehicleInsertRequestFormat": {
+      "type": "object",
+      "properties": {
+        "nopol": {
+          "type": "string",
+          "example": ""
+        },
+        "merk": {
+          "type": "string",
+          "example": ""
+        },
+        "tipe": {
+          "type": "string",
+          "example": ""
+        },
+        "tahun": {
+          "type": "string",
+          "example": ""
+        },
+        "kubikasi": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "nopol",
+        "merk",
+        "tipe",
+        "tahun",
+        "kubikasi"
+      ]
+    },
+    "VehicleUpdateRequestFormat": {
+      "type": "object",
+      "properties": {
+        "nopol": {
+          "type": "string",
+          "example": ""
+        },
+        "merk": {
+          "type": "string",
+          "example": ""
+        },
+        "tipe": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "nopol",
+        "merk",
+        "tipe"
+      ]
+    },
+    "OwnerRequestFormat": {
+      "type": "object",
+      "properties": {
+        "member_id": {
+          "type": "number",
+          "example": 0
+        },
+        "vehicle_id": {
+          "type": "number",
+          "example": 0
+        }
+      },
+      "required": [
+        "member_id",
+        "vehicle_id"
+      ]
+    }
+  }
+}
