@@ -1,0 +1,17 @@
+-- Table: public.members
+
+-- DROP TABLE IF EXISTS public.members;
+
+CREATE TABLE IF NOT EXISTS public.members
+(
+    id integer NOT NULL DEFAULT nextval('members_id_seq1'::regclass),
+    nama character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    alamat character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    vehicle_id integer,
+    CONSTRAINT members_id PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.members
+    OWNER to postgres;

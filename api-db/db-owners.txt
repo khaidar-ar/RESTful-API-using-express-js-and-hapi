@@ -1,0 +1,16 @@
+-- Table: public.owners
+
+-- DROP TABLE IF EXISTS public.owners;
+
+CREATE TABLE IF NOT EXISTS public.owners
+(
+    id integer NOT NULL DEFAULT nextval('owners_id_seq'::regclass),
+    member_id integer NOT NULL,
+    vehicle_id integer NOT NULL,
+    CONSTRAINT owners_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.owners
+    OWNER to postgres;

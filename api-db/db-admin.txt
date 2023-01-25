@@ -1,0 +1,17 @@
+-- Table: public.admin
+
+-- DROP TABLE IF EXISTS public.admin;
+
+CREATE TABLE IF NOT EXISTS public.admin
+(
+    id integer NOT NULL DEFAULT nextval('members_id_seq'::regclass),
+    nama character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT members_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.admin
+    OWNER to postgres;

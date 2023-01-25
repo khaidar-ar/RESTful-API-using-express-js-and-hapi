@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS public.books
+(
+    id integer NOT NULL DEFAULT nextval('books_id_seq'::regclass),
+    judul character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    penulis character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    tahun integer NOT NULL,
+    penerbit character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    deskripsi text COLLATE pg_catalog."default",
+    created_at timestamp without time zone NOT NULL DEFAULT now(),
+    updated_at timestamp without time zone,
+    update boolean NOT NULL DEFAULT false,
+    CONSTRAINT books_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.books
+    OWNER to postgres;

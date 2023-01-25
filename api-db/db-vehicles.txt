@@ -1,0 +1,21 @@
+-- Table: public.vehicles
+
+-- DROP TABLE IF EXISTS public.vehicles;
+
+CREATE TABLE IF NOT EXISTS public.vehicles
+(
+    id integer NOT NULL DEFAULT nextval('vehicles_id_seq'::regclass),
+    nopol character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    merk character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    kubikasi character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    tahun character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    tipe character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    created_at timestamp without time zone NOT NULL DEFAULT now(),
+    updated_at timestamp without time zone,
+    CONSTRAINT vehicles_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.vehicles
+    OWNER to postgres;
