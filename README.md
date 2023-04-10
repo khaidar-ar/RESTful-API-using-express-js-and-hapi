@@ -1,4 +1,4 @@
-# UAS-Web-BE
+# RESTful API using Express JS
 Oleh : Khaidar Ahsanur Rijal - 202011420007
 
 Project akhir mata kuliah web back-end development.
